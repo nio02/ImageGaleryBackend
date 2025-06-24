@@ -10,6 +10,7 @@ public interface IusuarioService{
     void guardarUsuario(Usuario usuario);
     void editarUsuario(Long id, Usuario usuario);
     void eliminarUsuario(Long id);
+    void registrarUsuario(Usuario usuario);
     Usuario findbyCorreo(String correo);
     Usuario findbyUsername(String username);
 }

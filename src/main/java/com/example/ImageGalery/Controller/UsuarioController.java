@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
+//@CrossOrigin(origins = "*")
 @RequestMapping("/users")
 public class UsuarioController {
     private final UsuarioService usuarioService;
@@ -32,5 +33,17 @@ public class UsuarioController {
     public ResponseEntity<String> guardarUsuario(@RequestBody Usuario usuario){
         usuarioService.guardarUsuario(usuario);
         return ResponseEntity.ok("Usuario agregado con éxito!");
+    }
+
+    @PostMapping("/register")
+    public ResponseEntity<String> registrarUsuario(@RequestBody Usuario usuario){
+        usuarioService.registrarUsuario(usuario);
+        return ResponseEntity.ok("Usuario agregado con éxito!");
+    }
+
+    @DeleteMapping("/borrar/{id}")
+    public ResponseEntity<String> editarUsuario(@PathVariable Long id){
+        usuarioService.eliminarUsuario(id);
+        return ResponseEntity.ok("Usuario eliminado con éxtio!");
     }
 }

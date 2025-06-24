@@ -1,6 +1,10 @@
 package com.example.ImageGalery.Model;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 public class Usuario {
@@ -18,19 +22,21 @@ public class Usuario {
     @Column(nullable = false)
     private String password;
 
-    @Column(nullable = false)
-    private String direccion;
+    //Relaciones
+    @OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL)
+    @JsonManagedReference(value = "usuario-imagen")
+    private List<Imagen> imagenes = new ArrayList<>();
 
     //Constructores
     public Usuario() {
     }
 
-    public Usuario(Long id_usuario, String nombreUsuario, String correo, String password, String direccion) {
+    public Usuario(Long id_usuario, String nombreUsuario, String correo, String password, List<Imagen> imagenes) {
         this.id_usuario = id_usuario;
         this.nombreUsuario = nombreUsuario;
         this.correo = correo;
         this.password = password;
-        this.direccion = direccion;
+        this.imagenes = imagenes;
     }
 
     //Getters y Setters
@@ -66,11 +72,11 @@ public class Usuario {
         this.password = password;
     }
 
-    public String getDireccion() {
-        return direccion;
+    public List<Imagen> getImagenes() {
+        return imagenes;
     }
 
-    public void setDireccion(String direccion) {
-        this.direccion = direccion;
+    public void setImagenes(List<Imagen> imagenes) {
+        this.imagenes = imagenes;
     }
 }

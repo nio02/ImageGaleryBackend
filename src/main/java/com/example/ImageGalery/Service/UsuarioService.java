@@ -58,6 +58,17 @@ public class UsuarioService implements IusuarioService{
     }
 
     @Override
+    public void registrarUsuario(Usuario usuario) {
+        Usuario existe = usuarioRepository.findByCorreo(usuario.getCorreo());
+
+        if (existe != null){
+            throw new IllegalArgumentException("El correo ya está registrado");
+        }
+
+        usuarioRepository.save(usuario);
+    }
+
+    @Override
     public Usuario findbyCorreo(String correo) {
         return usuarioRepository.findByCorreo(correo);
     }
