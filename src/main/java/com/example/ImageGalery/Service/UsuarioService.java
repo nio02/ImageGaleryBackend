@@ -69,8 +69,11 @@ public class UsuarioService implements IusuarioService{
     public void registrarUsuario(Usuario usuario) {
         //Validacion Usuario Existente
         Usuario usuarioExistente = usuarioRepository.findByCorreo(usuario.getCorreo());
+        Usuario userNameExiste = usuarioRepository.findByNombreUsuario(usuario.getNombreUsuario());
         if (usuarioExistente != null){
             throw new IllegalArgumentException("El correo ya está registrado");
+        } else if (userNameExiste != null) {
+            throw new IllegalArgumentException("El nombre de usuario ya está registrado");
         }
 
         //Registro nuevo usuario
