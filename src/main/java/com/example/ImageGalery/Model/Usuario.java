@@ -16,7 +16,7 @@ public class Usuario {
     @Column(nullable = false)
     private String nombreUsuario;
 
-    @Column(nullable = false)
+    @Column(nullable = false, unique = true)
     private String correo;
 
     @Column(nullable = false)

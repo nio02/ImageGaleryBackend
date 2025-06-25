@@ -3,13 +3,21 @@ package com.example.ImageGalery.Service;
 import com.example.ImageGalery.Model.Usuario;
 import com.example.ImageGalery.Repository.IusuarioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
 public class UsuarioService implements IusuarioService{
+    @Autowired
     private final IusuarioRepository usuarioRepository;
+
+    @Autowired
+    private PasswordEncoder passwordEncoder;
 
     @Autowired
     public UsuarioService(IusuarioRepository usuarioRepository) {
@@ -59,13 +67,18 @@ public class UsuarioService implements IusuarioService{
 
     @Override
     public void registrarUsuario(Usuario usuario) {
-        Usuario existe = usuarioRepository.findByCorreo(usuario.getCorreo());
-
-        if (existe != null){
+        //Validacion Usuario Existente
+        Usuario usuarioExistente = usuarioRepository.findByCorreo(usuario.getCorreo());
+        if (usuarioExistente != null){
             throw new IllegalArgumentException("El correo ya está registrado");
         }
 
-        usuarioRepository.save(usuario);
+        //Registro nuevo usuario
+        Usuario nuevoUsuario = new Usuario();
+        nuevoUsuario.setCorreo(usuario.getCorreo());
+        nuevoUsuario.setNombreUsuario(usuario.getNombreUsuario());
+        nuevoUsuario.setPassword(passwordEncoder.encode(usuario.getPassword()));
+        usuarioRepository.save(nuevoUsuario);
     }
 
     @Override
@@ -76,5 +89,14 @@ public class UsuarioService implements IusuarioService{
     @Override
     public Usuario findbyUsername(String username) {
         return usuarioRepository.findByNombreUsuario(username);
+    }
+
+    // Métdo de carga de usuario implementado desde UserDetailsService
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+        Usuario usuario = usuarioRepository.findByNombreUsuario(username);
+        if (usuario == null) {
+            throw new UsernameNotFoundException("Usuario no encontrado");
+        }
+        return new org.springframework.security.core.userdetails.User(usuario.getNombreUsuario(), usuario.getPassword(), new ArrayList<>());
     }
 }

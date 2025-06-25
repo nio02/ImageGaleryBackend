@@ -1,9 +1,11 @@
 package com.example.ImageGalery.Controller;
 
+import com.example.ImageGalery.JwtUtil;
 import com.example.ImageGalery.Model.Usuario;
 import com.example.ImageGalery.Service.UsuarioService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -12,7 +14,14 @@ import java.util.List;
 //@CrossOrigin(origins = "*")
 @RequestMapping("/users")
 public class UsuarioController {
+    @Autowired
     private final UsuarioService usuarioService;
+
+    @Autowired
+    private JwtUtil jwtUtil;
+
+    @Autowired
+    private PasswordEncoder passwordEncoder;
 
     @Autowired
     public UsuarioController(UsuarioService usuarioService) {
@@ -40,6 +49,9 @@ public class UsuarioController {
         usuarioService.registrarUsuario(usuario);
         return ResponseEntity.ok("Usuario agregado con éxito!");
     }
+
+//    @PostMapping("/login")
+//    public ResponseEntity<String>
 
     @DeleteMapping("/borrar/{id}")
     public ResponseEntity<String> editarUsuario(@PathVariable Long id){
