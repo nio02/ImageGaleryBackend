@@ -1,7 +1,7 @@
 package com.example.ImageGalery.Service;
 
 import com.example.ImageGalery.Model.Usuario;
-import com.example.ImageGalery.Repository.IusuarioRepository;
+import com.example.ImageGalery.Repository.IUsuarioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -12,15 +12,15 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Service
-public class UsuarioService implements IusuarioService{
+public class UsuarioService implements IUsuarioService {
     @Autowired
-    private final IusuarioRepository usuarioRepository;
+    private final IUsuarioRepository usuarioRepository;
 
     @Autowired
     private PasswordEncoder passwordEncoder;
 
     @Autowired
-    public UsuarioService(IusuarioRepository usuarioRepository) {
+    public UsuarioService(IUsuarioRepository usuarioRepository) {
         this.usuarioRepository = usuarioRepository;
     }
 

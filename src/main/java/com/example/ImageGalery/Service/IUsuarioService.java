@@ -4,7 +4,7 @@ import com.example.ImageGalery.Model.Usuario;
 
 import java.util.List;
 
-public interface IusuarioService{
+public interface IUsuarioService {
     List<Usuario> obtenerUsuarios();
     Usuario obtenerUsuario(Long id);
     void guardarUsuario(Usuario usuario);

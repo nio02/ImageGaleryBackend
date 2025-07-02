@@ -5,6 +5,7 @@ import com.example.ImageGalery.JwtUtil;
 import com.example.ImageGalery.Model.Usuario;
 import com.example.ImageGalery.Service.UsuarioService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -49,8 +50,12 @@ public class UsuarioController {
 
     @PostMapping("/register")
     public ResponseEntity<String> registrarUsuario(@RequestBody Usuario usuario){
-        usuarioService.registrarUsuario(usuario);
-        return ResponseEntity.ok("¡Registro exitoso!");
+        try {
+            usuarioService.registrarUsuario(usuario);
+            return ResponseEntity.ok("¡Registro exitoso!");
+        } catch (IllegalArgumentException exception){
+            return ResponseEntity.status(HttpStatus.FORBIDDEN).body(exception.getMessage());
+        }
     }
 
     @PostMapping("/loginDto")
