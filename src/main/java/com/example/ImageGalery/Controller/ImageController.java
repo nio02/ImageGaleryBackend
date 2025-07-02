@@ -1,7 +1,6 @@
 package com.example.ImageGalery.Controller;
 
 import com.example.ImageGalery.Model.Imagen;
-import com.example.ImageGalery.Model.Usuario;
 import com.example.ImageGalery.Service.ImagenService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
