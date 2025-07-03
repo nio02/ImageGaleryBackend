@@ -24,6 +24,11 @@ public class ImageController {
         return imagenService.obtenerImagenes();
     }
 
+    @GetMapping("/username/{id}")
+    public List<Imagen> obtenerPorUsuario(@PathVariable Long id){
+        return imagenService.obtenerPorUsuario(id);
+    }
+
     @PostMapping("/upload")
     public ResponseEntity<String> guardarImagen(@RequestBody Imagen imagen){
         imagenService.guardarImagen(imagen);

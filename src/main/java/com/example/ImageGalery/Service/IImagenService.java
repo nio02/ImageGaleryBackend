@@ -11,5 +11,5 @@ public interface IImagenService {
     void editarImagen(Long id, Imagen imagen);
     void eliminarImagen(Long id);
     Imagen findByUrl(String url);
-
+    List<Imagen> obtenerPorUsuario(Long id);
 }

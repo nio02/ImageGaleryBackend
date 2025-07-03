@@ -59,4 +59,9 @@ public class ImagenService implements IImagenService {
     public Imagen findByUrl(String url) {
         return imagenRepository.findByUrl(url);
     }
+
+    @Override
+    public List<Imagen> obtenerPorUsuario(Long id) {
+        return imagenRepository.findByUsuarioId(id);
+    }
 }

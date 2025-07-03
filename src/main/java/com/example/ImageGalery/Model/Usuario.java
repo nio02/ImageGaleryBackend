@@ -11,7 +11,8 @@ public class Usuario {
     //Atributes
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id_usuario;
+    @Column(name = "id_usuario")
+    private Long id;
 
     @Column(nullable = false)
     private String nombreUsuario;
@@ -32,7 +33,7 @@ public class Usuario {
     }
 
     public Usuario(Long id_usuario, String nombreUsuario, String correo, String password, List<Imagen> imagenes) {
-        this.id_usuario = id_usuario;
+        this.id = id_usuario;
         this.nombreUsuario = nombreUsuario;
         this.correo = correo;
         this.password = password;
@@ -40,12 +41,12 @@ public class Usuario {
     }
 
     //Getters y Setters
-    public Long getId_usuario() {
-        return id_usuario;
+    public Long getId() {
+        return id;
     }
 
-    public void setId_usuario(Long id_usuario) {
-        this.id_usuario = id_usuario;
+    public void setId(Long id_usuario) {
+        this.id = id_usuario;
     }
 
     public String getNombreUsuario() {
