@@ -9,7 +9,6 @@ import java.util.List;
 
 @Service
 public class ImagenService implements IImagenService {
-    @Autowired
     private final IImagenRepository imagenRepository;
 
     @Autowired

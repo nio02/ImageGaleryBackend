@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Entity
 public class Imagen {
@@ -31,6 +32,10 @@ public class Imagen {
     @JoinColumn(name = "id_usuario", nullable = false)
     @JsonBackReference(value = "usuario-imagen")
     private Usuario usuario;
+
+    @ManyToMany(mappedBy = "imagenesColeccion")
+    @JsonBackReference(value = "coleccion-imagen")
+    private List<Coleccion> colecciones;
 
     //Constructores
 
@@ -85,5 +90,13 @@ public class Imagen {
 
     public void setUsuario(Usuario usuario) {
         this.usuario = usuario;
+    }
+
+    public List<Coleccion> getColecciones() {
+        return colecciones;
+    }
+
+    public void setColecciones(List<Coleccion> colecciones) {
+        this.colecciones = colecciones;
     }
 }

@@ -91,7 +91,13 @@ public class UsuarioService implements IUsuarioService {
 
     @Override
     public Usuario findbyUsername(String username) {
-        return usuarioRepository.findByNombreUsuario(username);
+        Usuario usuarioEncontrado = usuarioRepository.findByNombreUsuario(username);
+
+        if (usuarioEncontrado != null){
+            return usuarioRepository.findByNombreUsuario(username);
+        } else {
+            throw new IllegalArgumentException("El nombre de usuario no fue encontrado!.");
+        }
     }
 
     // Métdo de carga de usuario implementado desde UserDetailsService
