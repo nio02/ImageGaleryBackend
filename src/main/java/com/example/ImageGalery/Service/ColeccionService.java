@@ -43,6 +43,14 @@ public class ColeccionService implements IColeccionService{
     }
 
     @Override
+    public void agregarImagen(Long idColeccion, Long idImagen) {
+        Coleccion coleccionExiste = coleccionRepository.findById(idColeccion).orElse(null);
+        Imagen imagenExiste = imagenRepository.findById(idImagen).orElse(null);
+
+
+    }
+
+    @Override
     public void eliminarColeccion(Long id) {
         coleccionRepository.deleteById(id);
     }

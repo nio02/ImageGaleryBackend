@@ -1,6 +1,7 @@
 package com.example.ImageGalery.Model;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 
 import java.time.LocalDateTime;
@@ -34,21 +35,22 @@ public class Imagen {
     @JsonBackReference(value = "usuario-imagen")
     private Usuario usuario;
 
-    @ManyToMany(mappedBy = "imagenesColeccion")
-    //@JsonBackReference(value = "coleccion-imagen")
-    private List<Coleccion> colecciones = new ArrayList<>();
+    @OneToMany(mappedBy = "imagen", cascade = CascadeType.ALL)
+    @JsonManagedReference(value = "imagen-ref")
+    private List<Coleccion_imagen> colecciones = new ArrayList<>();
 
     //Constructores
 
     public Imagen() {
     }
 
-    public Imagen(Long id_imagen, String descripcion, String url, LocalDateTime fecha_subida, Usuario usuario) {
+    public Imagen(Long id_imagen, String descripcion, String url, LocalDateTime fecha_subida, Usuario usuario, List<Coleccion_imagen> colecciones) {
         this.id_imagen = id_imagen;
         this.descripcion = descripcion;
         this.url = url;
         this.fecha_subida = fecha_subida;
         this.usuario = usuario;
+        this.colecciones = colecciones;
     }
 
     //Getters y Setters
@@ -93,11 +95,11 @@ public class Imagen {
         this.usuario = usuario;
     }
 
-    public List<Coleccion> getColecciones() {
+    public List<Coleccion_imagen> getColecciones() {
         return colecciones;
     }
 
-    public void setColecciones(List<Coleccion> colecciones) {
+    public void setColecciones(List<Coleccion_imagen> colecciones) {
         this.colecciones = colecciones;
     }
 }

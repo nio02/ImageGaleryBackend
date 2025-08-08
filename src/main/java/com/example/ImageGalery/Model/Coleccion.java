@@ -30,19 +30,14 @@ public class Coleccion {
     @JsonBackReference(value = "usuario-coleccion")
     private Usuario usuario;
 
-    @ManyToMany
-    @JoinTable(
-            name = "coleccion_imagen",
-            joinColumns = @JoinColumn(name = "id_coleccion"),
-            inverseJoinColumns = @JoinColumn(name = "id_imagen")
-    )
-    //@JsonManagedReference(value = "coleccion-imagen")
-    private List<Imagen> imagenesColeccion = new ArrayList<>();
+    @OneToMany(mappedBy = "coleccion", cascade = CascadeType.ALL)
+    @JsonManagedReference(value = "coleccion-ref")
+    private List<Coleccion_imagen> imagenesColeccion = new ArrayList<>();
 
     public Coleccion() {
     }
 
-    public Coleccion(Long id_coleccion, String nombre, LocalDateTime fecha_creacion, Usuario usuario, List<Imagen> imagenesColeccion) {
+    public Coleccion(Long id_coleccion, String nombre, LocalDateTime fecha_creacion, Usuario usuario, List<Coleccion_imagen> imagenesColeccion) {
         this.id_coleccion = id_coleccion;
         this.nombre = nombre;
         this.fecha_creacion = fecha_creacion;
@@ -74,11 +69,11 @@ public class Coleccion {
         this.fecha_creacion = fecha_creacion;
     }
 
-    public List<Imagen> getImagenesColeccion() {
+    public List<Coleccion_imagen> getImagenesColeccion() {
         return imagenesColeccion;
     }
 
-    public void setImagenesColeccion(List<Imagen> imagenesColeccion) {
+    public void setImagenesColeccion(List<Coleccion_imagen> imagenesColeccion) {
         this.imagenesColeccion = imagenesColeccion;
     }
 
