@@ -8,6 +8,7 @@ import java.util.List;
 public interface IColeccionService {
     List<Coleccion> obtenerTodos();
     Coleccion obtenerPorId(Long id);
+    List<Coleccion> obtenerColeccionesUsuario(Long idUsuario);
     void guardarColeccion(Coleccion coleccion);
     void eliminarColeccion(Long id);
     void actualizarColeccion(Long id, ColeccionDto coleccionDto);

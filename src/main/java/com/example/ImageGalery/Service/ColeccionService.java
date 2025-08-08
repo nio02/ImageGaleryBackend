@@ -6,9 +6,11 @@ import com.example.ImageGalery.Model.Imagen;
 import com.example.ImageGalery.Repository.IColeccionRepository;
 import com.example.ImageGalery.Repository.IImagenRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+@Service
 public class ColeccionService implements IColeccionService{
     private final IColeccionRepository coleccionRepository;
 
@@ -28,6 +30,11 @@ public class ColeccionService implements IColeccionService{
     @Override
     public Coleccion obtenerPorId(Long id) {
         return coleccionRepository.findById(id).orElse(null);
+    }
+
+    @Override
+    public List<Coleccion> obtenerColeccionesUsuario(Long idUsuario) {
+        return coleccionRepository.findByUsuarioId(idUsuario);
     }
 
     @Override

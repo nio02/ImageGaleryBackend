@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -34,8 +35,8 @@ public class Imagen {
     private Usuario usuario;
 
     @ManyToMany(mappedBy = "imagenesColeccion")
-    @JsonBackReference(value = "coleccion-imagen")
-    private List<Coleccion> colecciones;
+    //@JsonBackReference(value = "coleccion-imagen")
+    private List<Coleccion> colecciones = new ArrayList<>();
 
     //Constructores
 

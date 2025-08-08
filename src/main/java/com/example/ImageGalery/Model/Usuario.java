@@ -28,6 +28,10 @@ public class Usuario {
     @JsonManagedReference(value = "usuario-imagen")
     private List<Imagen> imagenes = new ArrayList<>();
 
+    @OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL)
+    @JsonManagedReference(value = "usuario-coleccion")
+    private List<Coleccion> coleccion = new ArrayList<>();
+
     //Constructores
     public Usuario() {
     }

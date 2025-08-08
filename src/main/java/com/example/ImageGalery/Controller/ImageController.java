@@ -11,7 +11,6 @@ import java.util.List;
 @RestController
 @RequestMapping("/images")
 public class ImageController {
-    @Autowired
     private final ImagenService imagenService;
 
     @Autowired

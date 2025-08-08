@@ -8,5 +8,5 @@ import java.util.List;
 
 @Repository
 public interface IColeccionRepository extends JpaRepository<Coleccion, Long> {
-
+    List<Coleccion> findByUsuarioId(Long id);
 }

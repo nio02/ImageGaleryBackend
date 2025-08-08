@@ -1,5 +1,6 @@
 package com.example.ImageGalery.Model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 
@@ -24,24 +25,29 @@ public class Coleccion {
         this.fecha_creacion = LocalDateTime.now();
     }
 
+    @ManyToOne
+    @JoinColumn(name = "id_usuario", nullable = false)
+    @JsonBackReference(value = "usuario-coleccion")
+    private Usuario usuario;
+
     @ManyToMany
     @JoinTable(
             name = "coleccion_imagen",
             joinColumns = @JoinColumn(name = "id_coleccion"),
             inverseJoinColumns = @JoinColumn(name = "id_imagen")
     )
-
-
-    @JsonManagedReference(value = "coleccion-imagen")
+    //@JsonManagedReference(value = "coleccion-imagen")
     private List<Imagen> imagenesColeccion = new ArrayList<>();
 
     public Coleccion() {
     }
 
-    public Coleccion(Long id_coleccion, String nombre, LocalDateTime fecha_creacion) {
+    public Coleccion(Long id_coleccion, String nombre, LocalDateTime fecha_creacion, Usuario usuario, List<Imagen> imagenesColeccion) {
         this.id_coleccion = id_coleccion;
         this.nombre = nombre;
         this.fecha_creacion = fecha_creacion;
+        this.usuario = usuario;
+        this.imagenesColeccion = imagenesColeccion;
     }
 
     public Long getId_coleccion() {
@@ -74,5 +80,13 @@ public class Coleccion {
 
     public void setImagenesColeccion(List<Imagen> imagenesColeccion) {
         this.imagenesColeccion = imagenesColeccion;
+    }
+
+    public Usuario getUsuario() {
+        return usuario;
+    }
+
+    public void setUsuario(Usuario usuario) {
+        this.usuario = usuario;
     }
 }
