@@ -3,6 +3,7 @@ package com.example.ImageGalery.Controller;
 import com.example.ImageGalery.Dto.ColeccionDto;
 import com.example.ImageGalery.Model.Coleccion;
 import com.example.ImageGalery.Service.ColeccionService;
+import com.example.ImageGalery.Service.Coleccion_imagenService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -15,9 +16,12 @@ import java.util.List;
 public class ColeccionController {
     private final ColeccionService coleccionService;
 
+    private final Coleccion_imagenService coleccionImagenService;
+
     @Autowired
-    public ColeccionController(ColeccionService coleccionService) {
+    public ColeccionController(ColeccionService coleccionService, Coleccion_imagenService coleccionImagenService) {
         this.coleccionService = coleccionService;
+        this.coleccionImagenService = coleccionImagenService;
     }
 
     @GetMapping
@@ -35,6 +39,16 @@ public class ColeccionController {
         try{
             coleccionService.guardarColeccion(coleccion);
             return ResponseEntity.ok("Coleccion agregada con éxito!");
+        } catch (IllegalArgumentException exception){
+            return ResponseEntity.status(HttpStatus.FORBIDDEN).body(exception.getMessage());
+        }
+    }
+
+    @PostMapping("/save/image/{idImagen}/collection/{idColeccion}")
+    public ResponseEntity<String> agregarImagenColeccion(@PathVariable Long idImagen, @PathVariable Long idColeccion){
+        try{
+            coleccionImagenService.agregarImagenAColeccion(idImagen, idColeccion);
+            return ResponseEntity.ok("Imagen agregada a coleccion");
         } catch (IllegalArgumentException exception){
             return ResponseEntity.status(HttpStatus.FORBIDDEN).body(exception.getMessage());
         }
@@ -60,7 +74,7 @@ public class ColeccionController {
         }
     }
 
-    @DeleteMapping("/delete/image/{idImage}/collection/{idColeccion}")
+    @DeleteMapping("/delete/image/{idImagen}/collection/{idColeccion}")
     public ResponseEntity<String> eliminarImagenDeColeccion(@PathVariable Long idColeccion, @PathVariable Long idImagen){
         try{
             coleccionService.eliminarImagenColeccion(idColeccion, idImagen);

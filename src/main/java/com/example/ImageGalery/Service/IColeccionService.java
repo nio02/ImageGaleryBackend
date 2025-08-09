@@ -10,7 +10,6 @@ public interface IColeccionService {
     Coleccion obtenerPorId(Long id);
     List<Coleccion> obtenerColeccionesUsuario(Long idUsuario);
     void guardarColeccion(Coleccion coleccion);
-    void agregarImagen(Long idColeccion, Long idImagen);
     void eliminarColeccion(Long id);
     void actualizarColeccion(Long id, ColeccionDto coleccionDto);
     void eliminarImagenColeccion(Long idColeccion, Long idImagen);
