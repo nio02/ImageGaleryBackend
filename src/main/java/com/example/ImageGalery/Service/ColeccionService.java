@@ -6,6 +6,7 @@ import com.example.ImageGalery.Model.Imagen;
 import com.example.ImageGalery.Repository.IColeccionRepository;
 import com.example.ImageGalery.Repository.IImagenRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -41,14 +42,30 @@ public class ColeccionService implements IColeccionService{
 
     @Override
     public void eliminarColeccion(Long id) {
-        coleccionRepository.deleteById(id);
+        String usernameAuth = SecurityContextHolder.getContext().getAuthentication().getName();
+        Coleccion coleccionExiste = coleccionRepository.findById(id).orElse(null);
+
+        if(coleccionExiste != null){
+            if(!coleccionExiste.getUsuario().getNombreUsuario().equals(usernameAuth)){
+                throw new RuntimeException("No tienes permiso");
+            }
+
+            coleccionRepository.deleteById(id);
+        } else {
+            throw new RuntimeException("Imagen no encontrada");
+        }
     }
 
     @Override
     public void actualizarColeccion(Long id, ColeccionDto coleccionDto) {
+        String usernameAuth = SecurityContextHolder.getContext().getAuthentication().getName();
         Coleccion coleccionExiste = coleccionRepository.findById(id).orElse(null);
 
         if(coleccionExiste != null){
+            if(!coleccionExiste.getUsuario().getNombreUsuario().equals(usernameAuth)){
+                throw new RuntimeException("No tienes permiso");
+            }
+
             coleccionExiste.setNombre(coleccionDto.getNombre());
 
             coleccionRepository.save(coleccionExiste);

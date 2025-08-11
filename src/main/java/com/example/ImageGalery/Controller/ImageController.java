@@ -3,6 +3,7 @@ package com.example.ImageGalery.Controller;
 import com.example.ImageGalery.Model.Imagen;
 import com.example.ImageGalery.Service.ImagenService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -32,6 +33,16 @@ public class ImageController {
     public ResponseEntity<String> guardarImagen(@RequestBody Imagen imagen){
         imagenService.guardarImagen(imagen);
         return ResponseEntity.ok("Imagen cargada con éxito");
+    }
+
+    @PutMapping("/edit/{id}")
+    public ResponseEntity<String> editarImagen(@PathVariable Long id, @RequestBody Imagen imagen){
+        try {
+            imagenService.editarImagen(id, imagen);
+            return ResponseEntity.ok("Imagen actualizada con éxito");
+        } catch (IllegalArgumentException exception){
+            return ResponseEntity.status(HttpStatus.FORBIDDEN).body(exception.getMessage());
+        }
     }
 
     @DeleteMapping("/delete/{id}")
