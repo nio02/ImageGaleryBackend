@@ -12,5 +12,4 @@ public interface IColeccionService {
     void guardarColeccion(Coleccion coleccion);
     void eliminarColeccion(Long id);
     void actualizarColeccion(Long id, ColeccionDto coleccionDto);
-    void eliminarImagenColeccion(Long idColeccion, Long idImagen);
 }

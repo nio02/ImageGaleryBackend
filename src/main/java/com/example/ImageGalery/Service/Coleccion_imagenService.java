@@ -47,4 +47,16 @@ public class Coleccion_imagenService implements IColeccion_imagenService {
 
         coleccionImagenRepository.save(coleccion_imagen);
     }
+
+    @Override
+    public void eliminarImagenDeColeccion(Long idColeccion, Long idImagen) {
+        Coleccion_imagen coleccion_imagen = coleccionImagenRepository.findByColeccion_IdColeccionAndImagen_IdImagen(idColeccion, idImagen);
+
+        if (coleccion_imagen != null){
+            coleccionImagenRepository.delete(coleccion_imagen);
+        } else {
+            throw new RuntimeException("Relación no encontrada");
+        }
+    }
+
 }

@@ -74,14 +74,4 @@ public class ColeccionController {
         }
     }
 
-    @DeleteMapping("/delete/image/{idImagen}/collection/{idColeccion}")
-    public ResponseEntity<String> eliminarImagenDeColeccion(@PathVariable Long idColeccion, @PathVariable Long idImagen){
-        try{
-            coleccionService.eliminarImagenColeccion(idColeccion, idImagen);
-            return ResponseEntity.ok("Imagen eliminada de la coleccion");
-        } catch (IllegalArgumentException exception){
-            return ResponseEntity.status(HttpStatus.FORBIDDEN).body(exception.getMessage());
-        }
-    }
-
 }

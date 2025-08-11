@@ -14,12 +14,9 @@ import java.util.List;
 public class ColeccionService implements IColeccionService{
     private final IColeccionRepository coleccionRepository;
 
-    private final IImagenRepository imagenRepository;
-
     @Autowired
-    public ColeccionService(IColeccionRepository coleccionRepository, IImagenRepository iImagenRepository) {
+    public ColeccionService(IColeccionRepository coleccionRepository) {
         this.coleccionRepository = coleccionRepository;
-        this.imagenRepository = iImagenRepository;
     }
 
     @Override
@@ -57,22 +54,6 @@ public class ColeccionService implements IColeccionService{
             coleccionRepository.save(coleccionExiste);
         } else {
             throw new RuntimeException("Coleccion no encontrada con el id: " + id);
-        }
-    }
-
-    //TODO: Mover este método a la tabla intermedia
-    @Override
-    public void eliminarImagenColeccion(Long idColeccion, Long idImagen) {
-        Coleccion coleccion = coleccionRepository.findById(idColeccion).orElse(null);
-        Imagen imagen = imagenRepository.findById(idImagen).orElse(null);
-
-        if(coleccion != null){
-            boolean eliminacion = coleccion.getImagenesColeccion().remove(imagen);
-            if (!eliminacion){
-                throw new RuntimeException("La imagen no se encuentra en la coleccion");
-            }
-        } else {
-            throw new RuntimeException("No se encontro la coleccion con el id: " + idColeccion);
         }
     }
 

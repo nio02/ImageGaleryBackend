@@ -8,4 +8,5 @@ public interface IColeccion_imagenService {
     Coleccion_imagen obtenerPorId(Long id);
     List<Coleccion_imagen> obtenerTodos();
     void agregarImagenAColeccion(Long idImagen, Long idColeccion);
+    void eliminarImagenDeColeccion(Long idImagen, Long idColeccion);
 }

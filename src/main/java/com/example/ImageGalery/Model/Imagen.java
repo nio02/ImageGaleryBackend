@@ -13,7 +13,7 @@ public class Imagen {
     //Atributos
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id_imagen;
+    private Long idImagen;
 
     @Column(nullable = false, length = 254)
     private String descripcion;
@@ -44,8 +44,8 @@ public class Imagen {
     public Imagen() {
     }
 
-    public Imagen(Long id_imagen, String descripcion, String url, LocalDateTime fecha_subida, Usuario usuario, List<Coleccion_imagen> colecciones) {
-        this.id_imagen = id_imagen;
+    public Imagen(Long idImagen, String descripcion, String url, LocalDateTime fecha_subida, Usuario usuario, List<Coleccion_imagen> colecciones) {
+        this.idImagen = idImagen;
         this.descripcion = descripcion;
         this.url = url;
         this.fecha_subida = fecha_subida;
@@ -55,12 +55,12 @@ public class Imagen {
 
     //Getters y Setters
 
-    public Long getId_imagen() {
-        return id_imagen;
+    public Long getIdImagen() {
+        return idImagen;
     }
 
-    public void setId_imagen(Long id_imagen) {
-        this.id_imagen = id_imagen;
+    public void setIdImagen(Long idImagen) {
+        this.idImagen = idImagen;
     }
 
     public String getDescripcion() {

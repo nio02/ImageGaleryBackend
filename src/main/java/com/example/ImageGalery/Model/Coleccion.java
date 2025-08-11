@@ -12,7 +12,7 @@ import java.util.List;
 public class Coleccion {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id_coleccion;
+    private Long idColeccion;
 
     @Column(nullable = false, length = 254)
     private String nombre;
@@ -37,20 +37,20 @@ public class Coleccion {
     public Coleccion() {
     }
 
-    public Coleccion(Long id_coleccion, String nombre, LocalDateTime fecha_creacion, Usuario usuario, List<Coleccion_imagen> imagenesColeccion) {
-        this.id_coleccion = id_coleccion;
+    public Coleccion(Long idColeccion, String nombre, LocalDateTime fecha_creacion, Usuario usuario, List<Coleccion_imagen> imagenesColeccion) {
+        this.idColeccion = idColeccion;
         this.nombre = nombre;
         this.fecha_creacion = fecha_creacion;
         this.usuario = usuario;
         this.imagenesColeccion = imagenesColeccion;
     }
 
-    public Long getId_coleccion() {
-        return id_coleccion;
+    public Long getIdColeccion() {
+        return idColeccion;
     }
 
-    public void setId_coleccion(Long id_coleccion) {
-        this.id_coleccion = id_coleccion;
+    public void setIdColeccion(Long idColeccion) {
+        this.idColeccion = idColeccion;
     }
 
     public String getNombre() {
