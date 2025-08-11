@@ -73,9 +73,19 @@ public class UsuarioController {
     }
 
     @DeleteMapping("/borrar/{id}")
-    public ResponseEntity<String> editarUsuario(@PathVariable Long id){
+    public ResponseEntity<String> borrarUsuario(@PathVariable Long id){
         usuarioService.eliminarUsuario(id);
         return ResponseEntity.ok("Usuario eliminado con éxtio!");
+    }
+
+    @PutMapping("/edit/{id}")
+    public ResponseEntity<String> editarUsuario(@PathVariable Long id, @RequestBody Usuario usuario){
+        try {
+            usuarioService.editarUsuario(id, usuario);
+            return ResponseEntity.ok("Usuario modificado con éxito");
+        } catch (IllegalArgumentException exception){
+            return ResponseEntity.status(HttpStatus.FORBIDDEN).body(exception.getMessage());
+        }
     }
 
     @GetMapping("/cuenta")

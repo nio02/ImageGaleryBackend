@@ -51,7 +51,10 @@ public class UsuarioService implements IUsuarioService {
                 usuarioExistente.setCorreo(usuario.getCorreo());
             }
             if (usuario.getPassword() != null){
-                usuarioExistente.setPassword(usuario.getPassword());
+                if(passwordEncoder.matches(usuario.getPassword(), usuarioExistente.getPassword())){
+                    throw new RuntimeException("La contraseña no es válida");
+                }
+                usuarioExistente.setPassword(passwordEncoder.encode(usuario.getPassword()));
             }
 
             usuarioRepository.save(usuarioExistente);
